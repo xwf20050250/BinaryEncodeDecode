@@ -34,7 +34,7 @@ namespace EDCodeCore
         public static string Encode(string in_path)
         {
             string out_path = "";
-            if (File.Exists(in_path))
+            if (!File.Exists(in_path))
             {
                 throw new Exception($"file not exists: {in_path}");
             }
@@ -63,7 +63,7 @@ namespace EDCodeCore
         public static string Decode(string in_path)
         {
             string out_path = "";
-            if (File.Exists(in_path))
+            if (!File.Exists(in_path))
             {
                 throw new Exception($"file not exists: {in_path}");
             }

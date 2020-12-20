@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EDCodeCore;
-using System.Text;
 using System.IO;
 using CommandLine;
 
@@ -22,7 +17,9 @@ namespace BinaryEncodeDecode
 
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args).WithParsed(Run);
+            Parser.Default.ParseArguments<Options>(args)
+                .WithNotParsed(error => throw new Exception("命令行参数解析错误"))
+                .WithParsed(Run);
             Console.Read();
         }
 
@@ -42,20 +39,36 @@ namespace BinaryEncodeDecode
         {
             if (!File.Exists(file_path))
             {
+                Console.WriteLine($"not exists file: {file_path}");
                 return;
             }
-            EDcodeHelper.Encode(file_path);
-            Console.WriteLine($"success to encode file: {file_path}");
+            try
+            {
+                string out_path = EDcodeHelper.Encode(file_path);
+                Console.WriteLine($"successed to encode file: {file_path}, out: {out_path}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"failed to encode file: {file_path}, error: {ex.Message}");
+            }
         }
 
         static void DecodeFile(string file_path)
         {
             if (!File.Exists(file_path))
             {
+                Console.WriteLine($"not exists file: {file_path}");
                 return;
             }
-            EDcodeHelper.Decode(file_path);
-            Console.WriteLine($"success to decode file: {file_path}");
+            try
+            {
+                string out_path = EDcodeHelper.Decode(file_path);
+                Console.WriteLine($"successed to decode file: {file_path}, out: {out_path}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"failed to encode file: {file_path}, error: {ex.Message}");
+            }
         }
     }
 }
