@@ -20,7 +20,7 @@ namespace BinaryEncodeDecode
             Parser.Default.ParseArguments<Options>(args)
                 .WithNotParsed(error => throw new Exception("命令行参数解析错误"))
                 .WithParsed(Run);
-            Console.Read();
+            Console.ReadLine();
         }
 
         static void Run(Options options)
