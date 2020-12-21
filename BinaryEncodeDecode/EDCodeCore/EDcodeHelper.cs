@@ -16,18 +16,18 @@ namespace EDCodeCore
             s_factor = factor;
         }
 
-        public static byte Encode(byte inbyte)
+        public static byte Encode(byte in_byte)
         {
-            inbyte = (byte)(0xff & ((inbyte >> 6) | (inbyte << 2)));
-            return (byte)(inbyte ^ s_factor);
+            in_byte = (byte)(0xff & ((in_byte >> 6) | (in_byte << 2)));
+            return (byte)(in_byte ^ s_factor);
         }
 
-        public static void Encode(byte[] inoutbytes)
+        public static void Encode(byte[] inout_bytes)
         {
-            for (int i = 0; i < inoutbytes.Length; i++)
+            for (int i = 0; i < inout_bytes.Length; i++)
             {
-                inoutbytes[i] = (byte)(0xff & ((inoutbytes[i] >> 6) | (inoutbytes[i] << 2)));
-                inoutbytes[i] ^= s_factor;
+                inout_bytes[i] = (byte)(0xff & ((inout_bytes[i] >> 6) | (inout_bytes[i] << 2)));
+                inout_bytes[i] ^= s_factor;
             }
         }
 
@@ -45,18 +45,18 @@ namespace EDCodeCore
             return out_path;
         }
 
-        public static byte Decode(byte inbyte)
+        public static byte Decode(byte in_byte)
         {
-            inbyte ^= s_factor;
-            return (byte)(0xff & ((inbyte << 6) | (inbyte >> 2)));
+            in_byte ^= s_factor;
+            return (byte)(0xff & ((in_byte << 6) | (in_byte >> 2)));
         }
 
-        public static void Decode(byte[] inoutbytes)
+        public static void Decode(byte[] inout_bytes)
         {
-            for (int i = 0; i < inoutbytes.Length; ++i)
+            for (int i = 0; i < inout_bytes.Length; ++i)
             {
-                inoutbytes[i] ^= s_factor;
-                inoutbytes[i] = (byte)(0xff & ((inoutbytes[i] << 6) | (inoutbytes[i] >> 2)));
+                inout_bytes[i] ^= s_factor;
+                inout_bytes[i] = (byte)(0xff & ((inout_bytes[i] << 6) | (inout_bytes[i] >> 2)));
             }
         }
 
