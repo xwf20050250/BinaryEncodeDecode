@@ -17,6 +17,22 @@ namespace BinaryEncodeDecode
 
         static void Main(string[] args)
         {
+            if (1 == args.Length)
+            {
+                string path = args[0] as string;
+                Console.WriteLine("[help: e|encode, d|decode]:");
+                string t = Console.ReadLine();
+                if (t.Equals("e") || t.Equals("encode"))
+                {
+                    EncodeFile(path);
+                }
+                else if (t.Equals("d") || t.Equals("decode"))
+                {
+                    DecodeFile(path);
+                }
+                Console.ReadLine();
+                return;
+            }
             Parser.Default.ParseArguments<Options>(args)
                 .WithNotParsed(error => throw new Exception("命令行参数解析错误"))
                 .WithParsed(Run);
@@ -44,7 +60,7 @@ namespace BinaryEncodeDecode
             }
             try
             {
-                string out_path = EDcodeHelper.Encode(file_path);
+                string out_path = EDcodeHelper.Encode(file_path, $"{file_path}_encode");
                 Console.WriteLine($"successed to encode file: {file_path}, out: {out_path}");
             }
             catch (Exception ex)
@@ -62,7 +78,7 @@ namespace BinaryEncodeDecode
             }
             try
             {
-                string out_path = EDcodeHelper.Decode(file_path);
+                string out_path = EDcodeHelper.Decode(file_path, $"{file_path}_decode");
                 Console.WriteLine($"successed to decode file: {file_path}, out: {out_path}");
             }
             catch (Exception ex)
