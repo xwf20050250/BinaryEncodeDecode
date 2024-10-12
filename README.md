@@ -1,2 +1,2 @@
 # BinaryEncodeDecode
-简单的二进制加密解密
+一种简单的二进制加密解密
